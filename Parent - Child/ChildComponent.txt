@@ -1,0 +1,6 @@
+<aura:component >
+    <aura:method name="createContact" action="{!c.doCreateContact}" 
+                 description="Create Contact Mwthod with Account Id Parameter"> 
+        <aura:attribute name="accountId" type="String" /> 
+    </aura:method>
+</aura:component>

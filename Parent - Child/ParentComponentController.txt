@@ -1,0 +1,42 @@
+({
+	doInit : function(component, event, helper) {
+		// Call the apex controller method to fetch the list of all account
+		// Step1
+		var action = component.get('c.fetchAllAccounts');
+        // set the call back which will return the response from the controller method.
+        // Step3
+        action.setCallback(this, function(response){
+            // get the state of the response
+            var state = response.getState();
+            if((state === 'SUCCESS' || state === 'DRAFT') && component.isValid()){
+                // If success then get the response
+                var responseValue = response.getReturnValue();
+                // send the reponse to the component
+                component.set('v.accounts' , responseValue);
+            }else if(state === 'INCOMPLETE'){
+                console.log('User is offline or inactive. Process can not be executed');
+            }else if(state === 'ERROR'){
+                var errors = response.getError();
+                if(errors || errors[0].message){
+                    console.log('Error occured'+JSON.stringify(errors[0].message));
+                }
+            }else{
+                console.log('Unknown problem, state: ' + 
+                            state + ', error: ' + 
+                            JSON.stringify(errors[0].message));
+            }
+        });
+        // send the request to the server to fetch the account
+        // Step2
+        $A.enqueueAction(action);
+	},
+    doCreateContact : function(component, event, helper){
+        var selectAccountId = component.find('selectAccount').get('v.value');
+        if(selectAccountId){
+           // find the child component using the aura if
+           var createConComponent = component.find('quickContact');
+           // call the child controller method
+           createConComponent.createContact(selectAccountId);
+        }
+    },
+})

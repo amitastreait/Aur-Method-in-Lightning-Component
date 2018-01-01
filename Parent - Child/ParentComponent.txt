@@ -1,0 +1,46 @@
+<aura:component controller='CreateAccountController'>
+    <aura:attribute name="accounts" type="Account[]" />
+    <aura:handler name='init' value='{!this}' action='{!c.doInit}' />
+    
+    <div class='slds-m-around_x-small'>
+        <div class="slds-page-header">
+            <div class="slds-media">
+                <div class="slds-media__figure">
+                    <lightning:icon iconName="standard:contact" size="large" 
+                                    alternativeText="Create contact"/>
+                </div>
+                <div class="slds-media__body">
+                    <h1 class="slds-page-header__title slds-truncate slds-align-middle" 
+                        title="Create Contact">
+                        Create Contact
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+            <div class="slds-size_1-of-2">
+                <div class="slds-box slds-box_x-small  slds-m-around_x-small">
+                    <lightning:select name="SelectAccount" label="Select an Acount" 
+                                      required="true" aura:id='selectAccount'
+                                      messageWhenValueMissing="Did you forget to select an Account?">
+                        <option value="">-- None --</option>
+                        <aura:iteration items="{!v.accounts}" var="acc">
+                            <option value="{!acc.Id}" text="{!acc.Name}" />
+                        </aura:iteration>
+                    </lightning:select>
+                    <br/>
+                    <lightning:button variant="brand" label="Create Contact" 
+                                          iconName="standard:contact" 
+                                      iconPosition="left" onclick="{!c.doCreateContact }" />
+                </div>
+            </div>
+            <div class="slds-size_1-of-2">
+                <div class="slds-box slds-box_x-small  slds-m-around_x-small">
+                        Child Component
+                    <br/>
+                    <c:CreateContactComponent aura:id='quickContact'/>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,19 @@
+({
+	doCreateContact : function(component, event, helper) {
+        // fetch the value from the parent component
+        var params = event.getParam('arguments');
+        if(params){
+            // get a create record event 
+            var createAcountContactEvent = $A.get("e.force:createRecord");
+            createAcountContactEvent.setParams({
+                // Use Contact for the APIName
+                "entityApiName": "Contact",
+                // set the account Id to the AccountId field of Contact Object
+                "defaultFieldValues": {
+                    'AccountId' : params.accountId
+                }
+            });
+            createAcountContactEvent.fire(); 
+        }
+	},
+})
