@@ -1,4 +1,4 @@
-# Aur-Method-in-Lightning-Component
+# Aura-Method-in-Lightning-Component
 Call Child Component Controller From Parent Component - Aura Method
 
 aura:method: - Use <aura:method> to define a method as part of a component's API. This enables you to directly call a method in a component’s client-side controller instead of firing and handling a component event.
